@@ -4,7 +4,7 @@
 To get all books and authors, or one, we do not need to be authenticated:
 ```
 	curl -X GET http://localhost:4000/api/books -H "Content-Type: application/json"
-    curl -X GET http://localhost:4000/api/books/1 -H "Content-Type: application/json"
+	curl -X GET http://localhost:4000/api/books/1 -H "Content-Type: application/json"
 ```
 
 curl -X GET http://localhost:4000/api/authors -H "Content-Type: application/json"
