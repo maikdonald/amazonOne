@@ -80,7 +80,7 @@ List all/one users:
 
 Update users:
 ```
-  curl -X PUT http://localhost:4000/api/users/3 -H "Content-Type: application/json" -H "Authorization: Basic YWRtaW46MTIzNDU=" '{ "user": {"username": "Woody"}}'
+  curl -X PUT http://localhost:4000/api/users/3 -H "Content-Type: application/json" -H "Authorization: Basic YWRtaW46MTIzNDU=" -d '{ "user": {"username": "Woody"}}'
 ```
 
 Delete users:
