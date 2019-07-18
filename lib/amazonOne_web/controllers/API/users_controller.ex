@@ -112,7 +112,7 @@ defmodule AmazonOneWeb.API.UsersController do
     encoded_login = BasicAuth.encode(username, password)
     
     case BasicAuth.verify(conn, encoded_login) do
-      conn -> render(conn, "show.json", auth_token: encoded_login)
+      conn -> render(conn, "show_auth.json", auth_token: encoded_login)
     end
   end
 

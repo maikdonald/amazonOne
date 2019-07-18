@@ -1,11 +1,11 @@
 # AmazonOne
 
-Project using Phoenix Framework
+
+Project using **Phoenix Framework**
 
 Set-up:
-
   - Run MySQL locally
-  - Modify the DB configuration file to let the project create the tables in [a link](https://github.com/maikdonald/amazonOne/blob/master/config/dev.exs#L5)
+  - Modify the [DB configuration](https://github.com/maikdonald/amazonOne/blob/master/config/dev.exs#L5) file to let the project create the tables
   - In order to install the dependencies run:
   ```
     mix deps.get
@@ -14,12 +14,17 @@ Set-up:
   ```
     mix ecto.reset
   ```
+  - Start the server with:
+  ```
+    mix phx.server
+  ```
   - You are ready to go!!
 
 
-API Project documentation:
 
-Non-authenticated calls
+## API Project documentation:
+
+### Non-authenticated calls
 
 Get all books / authors (or one):
 ```
@@ -35,7 +40,7 @@ Create users:
   curl -X POST http://localhost:4000/api/users -H "Content-Type: application/json" -d '{ "user": {"username": "new_one", "password": "12345", "uuid": 34}}'
 ```
 
-Authenticated calls
+### Authenticated calls
 
 In order to get the token we need to run:
 
@@ -51,14 +56,16 @@ Being a "common-user" we can create/edit/delete books/authors
   curl -X PUT http://localhost:4000/api/books/3 -H "Content-Type: application/json" -H "Authorization: Basic dmlzaXRvcjoxMjM0NQ==" -d '{ "book": {"name": "Barcelona bikes"}}'
   curl -X DELETE http://localhost:4000/api/books/1 -H "Content-Type: application/json" -H "Authorization: Basic dmlzaXRvcjoxMjM0NQ=="
 
-  curl -X POST http://localhost:4000/api/authors -H "Content-Type: application/json" -H "Authorization: Basic dmlzaXRvcjoxMjM0NQ==" -d '{ "author": {"firstnme": "Woody", "lastname": "Meister", "uuid": 34}}'
-  curl -X PUT http://localhost:4000/api/authors/3 -H "Content-Type: application/json" -H "Authorization: Basic dmlzaXRvcjoxMjM0NQ==" -d '{ "author": {"firstnme": "Ramon"}}'
+  curl -X POST http://localhost:4000/api/authors -H "Content-Type: application/json" -H "Authorization: Basic dmlzaXRvcjoxMjM0NQ==" -d '{ "author": {"firstname": "Woody", "lastname": "Meister", "uuid": 34}}'
+  curl -X PUT http://localhost:4000/api/authors/3 -H "Content-Type: application/json" -H "Authorization: Basic dmlzaXRvcjoxMjM0NQ==" -d '{ "author": {"firstname": "Ramon"}}'
   curl -X DELETE http://localhost:4000/api/authors/1 -H "Content-Type: application/json" -H "Authorization: Basic dmlzaXRvcjoxMjM0NQ=="
 ``` 
 
 
 
-Then the admin user has some special permissions. First we should get the authentication token of the "Admin" user
+### Admin Authenticated calls
+
+The admin user has some special permissions. First we should get the authentication token of the "Admin" user
 ```
   curl -X POST http://localhost:4000/api/users/signin -H "Content-Type: application/json" -d '{ "username": "admin", "password": "12345"}'
 ```
@@ -83,7 +90,7 @@ Delete users:
 
 
 
-WEB Project documentation:
+## WEB Project documentation:
 
 This project also brings a very simple web front-end. To be able to run the web project you will need to:
   - Install Node.js dependencies with:

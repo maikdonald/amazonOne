@@ -32,4 +32,8 @@ defmodule AmazonOneWeb.API.UsersView do
     changeset
   end
 
+
+  def render("show_auth.json", %{auth_token: auth_token}) do
+    %{"cURL Authentication Header": "Authorization: Basic #{auth_token}"}
+  end
 end
