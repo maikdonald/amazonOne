@@ -1,0 +1,22 @@
+<div class="phx-hero">
+  <h2>One author:</h2>
+  <div>
+    <div style="width: 100%">
+	    <span><%= @author.uuid %></span>
+	    <span><%= @author.firstname %></span>
+	    <span><%= @author.lastname %></span>
+	    <div style="display: inline-block;">
+	    	<%= link("Show books", to:  Routes.authors_books_path(@conn, :show_author_books, @author.id), method: "get") %>
+	    </div>
+	</div>
+  </div>
+
+  <div style="margin-top: 3rem;">
+    <div style="display: inline-block;">
+    	<%= button("Edit author", to:  Routes.authors_path(@conn, :edit, @author.id), method: "get") %>
+    </div>
+    <div style="display: inline-block; margin-left: 2rem; ">
+    	<%= button("Delete author", to:  Routes.authors_path(@conn, :delete, @author.id), data: [confirm: "Really?"], method: "delete") %>
+    </div>
+  </div>
+</div>

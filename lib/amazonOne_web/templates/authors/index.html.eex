@@ -1,0 +1,30 @@
+<div class="phx-hero">
+  <%= if @with_book do %>
+  	<h2> All authors from <b><%= @with_book.name %></b>: </h2>
+  	<div>
+	  <%= for author <- @with_book.authors do %>
+	    <a href="/authors/<%= author.id %>" style="width: 100%; display:block">
+		    <span><%= author.uuid %></span>
+		    <span><%= author.firstname %></span>
+		    <span><%= author.lastname %></span>
+		</a>
+	  <% end %>
+  	</div>
+  <% else %>
+  	<h2>All authors:</h2>
+	<div>
+	  <%= for author <- @authors do %>
+	    <a href="/authors/<%= author.id %>" style="width: 100%; display:block">
+		    <span><%= author.uuid %></span>
+		    <span><%= author.firstname %></span>
+		    <span><%= author.lastname %></span>
+		</a>
+	  <% end %>
+	</div>
+
+	<div style="margin-top: 3rem;">
+	  <%= button("Create new author", to:  Routes.authors_path(@conn, :new), method: "get") %>
+	</div>
+  <% end %>
+</div>
+

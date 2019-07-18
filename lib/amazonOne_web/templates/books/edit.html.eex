@@ -1,0 +1,17 @@
+ <div class="form-group">
+	<%= form_for @changeset, Routes.books_path(@conn, :update, @book.id), fn f -> %>
+	  <label>
+	    Name: <%= text_input f, :name, value: @book.name %>
+	  </label>
+
+	  <label>
+	    Description: <%= text_input f, :description, value: @book.description %>
+	  </label>
+
+	  <label>
+	    ID: <%= text_input f, :uuid, value: @book.uuid %>
+	  </label>
+
+	  <%= submit "Submit" %>
+	<% end %>
+</div>

@@ -1,0 +1,13 @@
+<section class="phx-hero">
+  <h1><%= gettext "Welcome to %{name}!", name: "AmazonOne" %></h1>
+</section>
+
+<h2 style="text-align: center;"> What do you want to explore? </h2>
+<section class="row" style="text-align: center;">
+  <article class="column">
+    <h2><%= link("Books", to:  Routes.books_path(@conn, :index), method: "get") %></h2>
+  </article>
+  <article class="column">
+    <h2><%= link("Authors", to:  Routes.authors_path(@conn, :index), method: "get") %></h2>
+  </article>
+</section>

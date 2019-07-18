@@ -1,0 +1,135 @@
+Due to Friends.Repo.insert returning a tuple, we can use a case to determine different code paths depending on what happens:
+
+case Friends.Repo.insert(changeset) do
+  {:ok, person} ->
+    # do something with person
+  {:error, changeset} ->
+    # do something with changeset
+end
+
+
+
+
+Recreate database:
+mix ecto.drop
+mix ecto.create
+mix ecto.migrate
+
+
+
+
+people = [
+  %Friends.Person{first_name: "Ryan", last_name: "Bigg", age: 28},
+  %Friends.Person{first_name: "John", last_name: "Smith", age: 27},
+  %Friends.Person{first_name: "Jane", last_name: "Smith", age: 26},
+]
+
+Enum.each(people, fn (person) -> Friends.Repo.insert(person) end)
+
+
+
+
+
+
+This is the standard matrix of HTTP verbs, paths, and controller actions. Let's look at them individually, in a slightly different order.
+
+A GET request to /users will invoke the index action to show all the users.
+A GET request to /users/:id will invoke the show action with an id to show an individual user identified by that ID.
+A GET request to /users/new will invoke the new action to present a form for creating a new user.
+A POST request to /users will invoke the create action to save a new user to the data store.
+A GET request to /users/:id/edit will invoke the edit action with an ID to retrieve an individual user from the data store and present the information in a form for editing.
+partial upate => A PATCH request to /users/:id will invoke the update action with an ID to save the updated user to the data store.
+full update => A PUT request to /users/:id will also invoke the update action with an ID to save the updated user to the data store.
+A DELETE request to /users/:id will invoke the delete action with an ID to remove the individual user from the data store.
+
+
+
+
+
+ERRORS:
+
+https://hexdocs.pm/phoenix/views.html#rendering-templates
+
+
+
+
+
+
+
+
+
+LOGIN:
+
+defmodule Rumbl.Auth do
+  import Plug.Conn
+  import Comeonin.Bcrypt, only: [checkpw: 2, dummy_checkpw: 0]
+  import Phoenix.Controller
+  alias Rumbl.Router.Helpers
+
+  def init(opts) do
+    Keyword.fetch!(opts, :repo)
+  end
+
+  def call(conn, repo) do
+    user_id = get_session(conn, :user_id)
+    user = user_id && repo.get(Rumbl.User, user_id)
+    assign(conn, :current_user, user)
+  end
+
+  def login_by_username_and_pass(conn, username, given_pass, opts) do
+    repo = Keyword.fetch!(opts, :repo)
+    user = repo.get_by(Rumbl.User, username: username)
+
+    cond do
+      user && checkpw(given_pass, user.password_hash) ->
+        {:ok, login(conn, user)}
+      user ->
+        {:error, :unauthorized, conn}
+      true ->
+        dummy_checkpw()
+        {:error, :not_found, conn}
+    end
+  end
+
+  def login(conn, user) do
+    conn
+    |> assign(:current_user, user)
+    |> put_session(:user_id, user.id)
+    |> configure_session(renew: true)
+  end
+
+  def logout(conn) do
+    configure_session(conn, drop: true)
+  end
+
+  def authenticate_user(conn, _opts) do
+    if conn.assigns.current_user do
+      conn
+    else
+      conn
+      |> put_flash(:error, "You must be logged in to access that page")
+      |> redirect(to: page_path(conn, :index))
+      |> halt()
+    end
+  end
+end
+
+
+Y EN ROUTER:
+
+scope "/manage", Rumbl do
+	pipe_through [:browser, :authenticate_user]
+
+	resources "/videos", VideoController
+end
+
+  https://stackoverflow.com/questions/40449151/programming-phoenix-undefined-function-page-path-2
+
+
+
+
+
+
+
+POST PARA CREAR AUTHOR
+curl -X POST http://localhost:4000/api/authors.json -H "Content-Type: application/json" -H "Authorization: Basic dmlzaXRvcjoxMjM0NQ==" -d '{ "author": {"firstname": "Pelo", "lastname": "Root", "uuid": 3}}'

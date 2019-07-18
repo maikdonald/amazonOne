@@ -1,0 +1,34 @@
+<div class="phx-hero">
+  
+  <%= if @with_author do %>
+  	<h2> All books from <b><%= @with_author.firstname %> <%= @with_author.lastname %></b>: </h2>
+  	<div>
+	  <%= for book <- @with_author.books do %>
+	    <div style="width: 100%;">
+		    <a href="/books/<%= book.uuid %>" style="display:block">
+		    	<span><%= book.uuid %></span>
+		    	<span><%= book.name %></span>
+		    </a>
+		    <span><%= book.description %></span>
+		</div>
+	  <% end %>
+  	</div>
+  <% else %>
+  	<h2> All books </h2>
+  	<div>
+	  <%= for book <- @books do %>
+	    <div style="width: 100%;">
+		    <a href="/books/<%= book.uuid %>" style="display:block">
+		    	<span><%= book.uuid %></span>
+		    	<span><%= book.name %></span>
+		    </a>
+		    <span><%= book.description %></span>
+		</div>
+	  <% end %>
+  	</div>
+
+  	<div style="margin-top: 3rem;">
+	  <%= button("Create new book", to:  Routes.books_path(@conn, :new), method: "get") %>
+	</div>
+  <% end %>
+</div>
