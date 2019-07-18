@@ -5,7 +5,7 @@
   	<div>
 	  <%= for book <- @with_author.books do %>
 	    <div style="width: 100%;">
-		    <a href="/books/<%= book.uuid %>" style="display:block">
+		    <a href="/books/<%= book.id %>" style="display:block">
 		    	<span><%= book.uuid %></span>
 		    	<span><%= book.name %></span>
 		    </a>
@@ -18,7 +18,7 @@
   	<div>
 	  <%= for book <- @books do %>
 	    <div style="width: 100%;">
-		    <a href="/books/<%= book.uuid %>" style="display:block">
+		    <a href="/books/<%= book.id %>" style="display:block">
 		    	<span><%= book.uuid %></span>
 		    	<span><%= book.name %></span>
 		    </a>
